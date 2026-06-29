@@ -1,0 +1,75 @@
+{
+  "name": "specter",
+  "displayName": "Specter",
+  "description": "OpenAPI tooling: mock server, Try It panel, and breaking-change diff against Git HEAD.",
+  "version": "0.1.0",
+  "publisher": "specter",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:yaml",
+    "onLanguage:json"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "specter.toggleMock",
+        "title": "Specter: Toggle Mock Server"
+      },
+      {
+        "command": "specter.startMock",
+        "title": "Specter: Start Mock Server"
+      },
+      {
+        "command": "specter.stopMock",
+        "title": "Specter: Stop Mock Server"
+      },
+      {
+        "command": "specter.openTryIt",
+        "title": "Specter: Open Try It"
+      }
+    ],
+    "configuration": {
+      "title": "Specter",
+      "properties": {
+        "specter.port": {
+          "type": "number",
+          "default": 4010,
+          "description": "Port for the local mock HTTP server."
+        },
+        "specter.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start the mock server when an OpenAPI file is opened."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --packages=external --platform=node --target=node18",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --packages=external --platform=node --target=node18 --watch",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "@faker-js/faker": "^8.4.1",
+    "@stoplight/prism-core": "^5.5.0",
+    "@stoplight/prism-http": "^5.5.0",
+    "@stoplight/prism-http-server": "^5.5.0",
+    "openapi-diff": "^0.23.0",
+    "simple-git": "^3.22.0",
+    "tmp": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/tmp": "^0.2.6",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.1",
+    "typescript": "^5.3.0"
+  }
+}
