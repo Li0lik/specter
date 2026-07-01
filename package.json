@@ -1,15 +1,24 @@
 {
   "name": "specter",
   "displayName": "Specter",
-  "description": "OpenAPI tooling: mock server, Try It panel, and breaking-change diff against Git HEAD.",
+  "description": "OpenAPI mock server + Git diff + Try It — without leaving VS Code",
   "version": "0.1.0",
-  "publisher": "specter",
+  "publisher": "li0lik",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Li0lik/specter"
+  },
+  "homepage": "https://github.com/Li0lik/specter",
+  "bugs": {
+    "url": "https://github.com/Li0lik/specter/issues"
+  },
+  "keywords": ["openapi", "swagger", "mock", "api", "rest", "diff"],
+  "categories": ["Other", "Testing"],
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "license": "MIT",
   "main": "./dist/extension.js",
   "activationEvents": [
     "onLanguage:yaml",
@@ -51,8 +60,8 @@
     }
   },
   "scripts": {
-    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --packages=external --platform=node --target=node18",
-    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --packages=external --platform=node --target=node18 --watch",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --platform=node --target=node18",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --packages=external --platform=node --target=node18 --watch",
     "vscode:prepublish": "npm run compile"
   },
   "dependencies": {

@@ -66,18 +66,6 @@ paths:
                   value:
                     id: 1
                     name: Rex
-    delete:
-      summary: Delete a pet
-      operationId: deletePet
-      parameters:
-        - name: petId
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '204':
-          description: Deleted
 
 components:
   schemas:
