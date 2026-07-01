@@ -129,9 +129,14 @@ export class DiffProvider {
       }
 
       this._diagnostics.set(document.uri, diagnostics);
-    } catch {
-      // Невалидная спека (текущая или предыдущая) — не засоряем Problems старыми ошибками
-      this._diagnostics.delete(document.uri);
+    } catch (err) {
+      // Невалидная спека (текущая или предыдущая). Вместо тихой очистки —
+      // показываем причину в Problems, иначе непонятно почему diff "молчит".
+      console.error('[Specter] diff parse error:', err);
+      const message = err instanceof Error ? err.message : String(err);
+      this._diagnostics.set(document.uri, [
+        makeDiagnostic(document, 0, `Specter: cannot parse OpenAPI — ${message}`, vscode.DiagnosticSeverity.Warning),
+      ]);
     } finally {
       try { fs.unlinkSync(tmpFile); } catch {}
     }

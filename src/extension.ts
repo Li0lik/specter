@@ -26,11 +26,12 @@ export function activate(context: vscode.ExtensionContext): void {
   // Diff on save for OpenAPI-looking documents.
   context.subscriptions.push(
     vscode.workspace.onDidSaveTextDocument(async (doc) => {
+      console.log('[Specter] onDidSave:', doc.uri.fsPath, 'isOpenApi:', isOpenApiDocument(doc));
       if (isOpenApiDocument(doc)) {
         try {
           await diffProvider.runDiff(doc);
-        } catch {
-          /* diff failures are non-fatal */
+        } catch (err) {
+          console.error('[Specter] runDiff failed:', err);
         }
       }
     })
